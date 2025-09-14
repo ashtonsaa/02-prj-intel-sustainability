@@ -1,1 +1,249 @@
 /* Add your CSS here */
+
+/* Remove default margin so header touches the very top */
+body {
+  margin: 0; /* No space around the page */
+  font-family: 'Segoe UI', Arial, sans-serif; /* Clean, modern font similar to Intel's */
+  font-size: 1em; /* Default size for body text */
+  color: #222; /* Dark color for body text outside hero */
+}
+
+/* Center and style the info text at the bottom */
+body > p {
+  text-align: center; /* Center the text */
+  font-size: 1.2em;   /* Make it a bit larger */
+  color: #0071c5;      /* Intel blue for emphasis */
+  margin: 30px 0 20px 0; /* Space above and below */
+  letter-spacing: 1px; /* Slightly more space between letters */
+}
+
+/* Hero Section Styles */
+header {
+  /* Make the blue background cover the full width of the screen */
+  width: 100%; /* Use 100% so it doesn't overflow and cause horizontal scroll */
+  /* Removed margin-left: calc(-50vw + 50%) to prevent overflow */
+  background: linear-gradient(120deg, #0071c5 0%, #005fa3 50%, #00cfff 100%);
+  color: white; /* White text for good contrast */
+  padding: 100px 0; /* More space above and below for a roomy hero section */
+  text-align: center; /* Center all text and images */
+}
+
+/* Style the logo image */
+header img {
+  width: 180px; /* Larger logo for emphasis */
+  height: auto; /* Keep the logo's aspect ratio */
+  margin-bottom: 40px; /* More space below the logo for separation */
+}
+
+/* Main headline style */
+header h1 {
+  font-size: 3.5em; /* Much bigger headline */
+  margin: 0 0 35px 0; /* More space below headline */
+  font-weight: bold; /* Make headline bold */
+  letter-spacing: 1px; /* Slightly more space between letters for a modern look */
+}
+
+/* Subheading / Description style */
+header p {
+  font-size: 1.7em; /* Larger text for description */
+  margin: 0 0 0 0; /* Remove top margin, let spacing come from headline */
+  padding-bottom: 20px; /* Add space below the subheading */
+  max-width: 700px; /* Slightly wider for bigger text */
+  margin-left: auto; /* Center the paragraph */
+  margin-right: auto; /* Center the paragraph */
+  line-height: 1.5; /* More space between lines for readability */
+}
+
+/* Make all headings use the same font and be bold */
+h1, h2, h3 {
+  font-family: 'Segoe UI', Arial, sans-serif; /* Use the same font for headings */
+  font-weight: bold; /* Make headings bold */
+  margin-top: 0; /* Remove default top margin for consistency */
+}
+
+/* Make timeline years Intel blue */
+section h2 {
+  color: #0071c5; /* Intel blue for years */
+}
+
+/* Make sure the hero section looks good on mobile devices */
+@media (max-width: 600px) {
+  header {
+    padding: 70px 10px; /* More space above/below, some side padding */
+  }
+  header img {
+    width: 120px; /* Slightly larger logo for mobile balance */
+    margin-bottom: 30px; /* Space below logo */
+  }
+  header h1 {
+    font-size: 2.3em; /* Bigger headline for mobile */
+    margin-bottom: 25px; /* More space below headline */
+    letter-spacing: 1px; /* Keep spacing modern */
+    padding-left: 15px;  /* Add space to left */
+    padding-right: 15px; /* Add space to right */
+  }
+  header p {
+    font-size: 1.2em; /* Larger description for readability */
+    max-width: 95vw; /* Use almost full width on mobile */
+    padding-bottom: 15px; /* Space below subheading */
+    line-height: 1.5; /* Good line spacing */
+    padding-left: 15px;  /* Add space to left */
+    padding-right: 15px; /* Add space to right */
+  }
+}
+
+/* Timeline Section Styles */
+section {
+  /* Use Flexbox to lay out cards horizontally */
+  display: flex; /* Arrange children in a row */
+  flex-direction: row; /* Horizontal layout */
+  overflow-x: auto; /* Allow horizontal scrolling */
+  gap: 30px; /* Space between cards */
+  padding: 40px 30px; /* Space around timeline */
+  background: #f4f8fb; /* Light Intel-like background */
+  /* Hide scrollbar for a cleaner look */
+  scrollbar-width: thin;
+  scrollbar-color: #0071c5 #f4f8fb;
+  scroll-snap-type: x mandatory; /* Enable horizontal scroll snap */
+}
+
+/* Make each card and marker snap to the start of the scroll area */
+section > div {
+  background: white; /* Card background */
+  border-radius: 16px; /* Rounded corners */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* Soft shadow */
+  border: 1px solid #e0e7ef; /* Light border */
+  min-width: 260px; /* Minimum card width */
+  max-width: 300px; /* Maximum card width */
+  flex: 0 0 auto; /* Prevent cards from stretching */
+  padding: 24px 18px; /* Space inside card */
+  text-align: left; /* Align text to left */
+  position: relative; /* Needed for overlay positioning */
+  overflow: hidden;   /* Hide overlay outside card */
+  max-height: none;   /* Remove expansion effect */
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+  scroll-snap-align: start; /* Snap each card/marker to the left edge */
+}
+
+/* Card hover effect: add a subtle shadow and scale up slightly */
+section > div:hover {
+  border-color: #0071c5; /* Blue border on hover */
+  box-shadow: 0 6px 24px rgba(0,113,197,0.15); /* Stronger blue shadow */
+  transform: translateY(-4px) scale(1.03); /* Slight lift and scale */
+}
+
+/* Overlay milestone details on hover */
+.milestone-details {
+  position: absolute; /* Position overlay over card */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 113, 197, 0.85); /* Intel blue, semi-transparent */
+  color: #fff; /* White text for contrast */
+  display: flex; /* Center text vertically and horizontally */
+  align-items: center;
+  justify-content: center;
+  opacity: 0; /* Hide overlay by default */
+  pointer-events: none; /* Allow hover to trigger */
+  transition: opacity 0.3s;
+  padding: 0; /* Remove extra padding for perfect centering */
+  text-align: center;
+  border-radius: 16px;
+  z-index: 2;
+  overflow: auto; /* Allow scrolling if text is too long */
+}
+
+/* Show overlay only on hover */
+section > div:hover .milestone-details {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Overlay text styles */
+.milestone-details p {
+  opacity: 1; /* Always visible in overlay */
+  margin: 0 auto;
+  font-size: 1.2em; /* Smaller font so longer text fits */
+  line-height: 1.3;
+  max-width: 90%; /* Prevent text from overflowing card */
+  word-break: break-word; /* Break long words if needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+/* Make all milestone images the same size and crop them */
+/* This ensures every card image is the same height and fills the card width */
+section > div img {
+  width: 100%; /* Image fills the card width */
+  height: 160px; /* All images have the same height */
+  object-fit: cover; /* Crop image to fill area, keeps aspect ratio */
+  border-radius: 8px;
+  margin-bottom: 12px;
+  display: block; /* Removes extra space below images */
+}
+
+/* No changes needed; timeline-marker styles are unused and harmless */
+
+/* Responsive: Stack cards vertically on small screens */
+@media (max-width: 800px) {
+  section {
+    flex-direction: column; /* Stack cards vertically */
+    overflow-x: visible; /* No horizontal scroll */
+    gap: 25px; /* Less gap between cards */
+    padding: 30px 10px; /* Less side padding */
+    align-items: center; /* Center cards */
+  }
+  section > div {
+    max-width: 95vw; /* Cards fill most of screen */
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+/* Responsive: make bottom info text smaller on mobile */
+@media (max-width: 600px) {
+  body > p {
+    font-size: 0.9em; /* Smaller font for info text on small screens */
+    margin: 20px 0 15px 0; /* Adjust spacing for mobile */
+  }
+}
+.timeline-marker.timeline-start,
+.timeline-marker.timeline-end {
+  background: none;
+}
+
+/* Responsive: make markers smaller on mobile */
+@media (max-width: 800px) {
+  .timeline-marker {
+    font-size: 1em;
+    max-width: 70vw; /* Allow marker to use more width on mobile */
+  }
+}
+
+/* Responsive: Stack cards vertically on small screens */
+@media (max-width: 800px) {
+  section {
+    flex-direction: column; /* Stack cards vertically */
+    overflow-x: visible; /* No horizontal scroll */
+    gap: 25px; /* Less gap between cards */
+    padding: 30px 10px; /* Less side padding */
+    align-items: center; /* Center cards */
+  }
+  section > div {
+    max-width: 95vw; /* Cards fill most of screen */
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+/* Responsive: make bottom info text smaller on mobile */
+@media (max-width: 600px) {
+  body > p {
+    font-size: 0.9em; /* Smaller font for info text on small screens */
+    margin: 20px 0 15px 0; /* Adjust spacing for mobile */
+  }
+}
+
